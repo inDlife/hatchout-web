@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {Ghost} from '@/types';
+import {Ghost, User} from '@/types';
 import {Tx} from '@/types/tx';
+import {UserApi} from '@/api';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -39,7 +41,29 @@ export const store = new Vuex.Store({
         status: 'fail',
       },
     ] as Tx[],
+    self: {} as User,
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    syncSelf(state, self) {
+      state.self = self;
+
+    },
+  },
+  actions: {
+    async syncSelf(context) {
+      // todo: dependency injection.
+      const instance = axios.create({
+        baseURL: 'http://localhost:3000/',
+      });
+      const userApi = new UserApi(instance);
+      // todo: not 4, fix it.
+      const user = await userApi.get(4);
+      context.commit('syncSelf', user);
+    },
+  },
+  getters: {
+    getSelf: (state) => {
+      return state.self;
+    },
+  },
 });

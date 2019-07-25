@@ -1,6 +1,8 @@
 <template>
     <div class="market-place-section">
       <div class="top">
+        <button v-on:click="syncSelf">haha</button>
+        <div>{{getSelf()}}</div>
 
         <div class="title">Market Place</div>
       </div>
@@ -24,7 +26,7 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import {Ghost} from '@/types';
+import {Ghost, User} from '@/types';
 import GhostCard from '@/components/cards/GhostCard.vue';
 import GhostTable from '@/components/tables/GhostTable.vue';
 
@@ -34,10 +36,19 @@ import GhostTable from '@/components/tables/GhostTable.vue';
 export default class MarketPlaceSection extends Vue {
   @Prop() public ghosts!: Ghost[];
   public currentNum!: number;
+  public me: User;
 
   constructor() {
     super();
     this.currentNum = 1;
+    this.me = this.$store.state.me;
+  }
+  public getSelf() {
+    return this.$store.getters.getSelf;
+  }
+
+  public syncSelf() {
+    return this.$store.dispatch('syncSelf');
   }
 }
 </script>
@@ -166,7 +177,6 @@ export default class MarketPlaceSection extends Vue {
       line-height: normal;
       letter-spacing: -0.32px;
       color: #ffffff;
-
     }
 
 </style>
