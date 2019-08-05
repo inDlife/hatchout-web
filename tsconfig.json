@@ -14,7 +14,8 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "reflect-metadata"
     ],
     "paths": {
       "@/*": [
@@ -25,7 +26,8 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "scripthost",
+      "es6"
     ]
   },
   "include": [

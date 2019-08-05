@@ -5,13 +5,16 @@ import {Tx} from '@/types/tx';
 import {container} from '@/provider/container';
 import {UserApi} from '@/api';
 import {TYPES} from '@/provider/types';
-import {userModule} from '@/store/modules/user';
+import {Users} from '@/store/modules/user';
+import 'reflect-metadata';
+
+
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   modules: {
-    user: userModule,
+    userModule: Users,
   },
   state: {
     myGhosts: [
@@ -54,5 +57,4 @@ export const store = new Vuex.Store({
   },
   getters: {
   },
-  strict: true,
 });

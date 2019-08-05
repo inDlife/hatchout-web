@@ -1,19 +1,19 @@
-import axios, {AxiosInstance} from 'axios';
-import {inject, injectable} from 'inversify';
+import {AxiosInstance} from 'axios';
 import 'reflect-metadata';
-import {TYPES} from '@/provider/types';
-import {AxiosFactory} from '@/api/axios/axios.factory';
+import {Inject, injectable} from 'inversify-props';
+import {IAxiosService} from '@/api/axios/IAxios.service';
+import IAxiosFactory from '@/api/axios/IAxiosFactory';
 
 @injectable()
-export class AxiosService {
-  private hatchout: AxiosInstance;
+export class AxiosService implements IAxiosService {
+  @Inject() public axiosFactory!: IAxiosFactory;
+  private axiosInstance: AxiosInstance;
   constructor(
-    @inject(TYPES.AxiosFactory) axiosFactory: AxiosFactory,
   ) {
     // todo: move config to config file
-    this.hatchout = axiosFactory.create('http://localhost:3000/');
+    this.axiosInstance = this.axiosFactory.create('http://localhost:3000/');
   }
-  public getHatchOut(): AxiosInstance {
-    return this.hatchout;
+  public get(): AxiosInstance {
+    return this.axiosInstance;
   }
 }

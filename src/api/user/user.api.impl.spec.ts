@@ -19,7 +19,7 @@ describe('UserApi', () => {
   );
 
   const mockAxiosService = mock(AxiosService);
-  when(mockAxiosService.getHatchOut()).thenReturn(axiosInstance);
+  when(mockAxiosService.get()).thenReturn(axiosInstance);
 
   const userApi = new UserApiImpl(instance(mockAxiosService));
   let responseData: object;

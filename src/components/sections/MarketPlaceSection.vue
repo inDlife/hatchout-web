@@ -4,6 +4,7 @@
 
         <div class="title">Market Place</div>
         <div>{{getSelf()}}</div>
+        <div>{{syncSelf()}}</div>
       </div>
       <div class="middle">
         <GhostTable v-bind:ghosts="ghosts"></GhostTable>
@@ -28,6 +29,10 @@ import {Vue, Component, Prop} from 'vue-property-decorator';
 import {Ghost} from '@/types';
 import GhostCard from '@/components/cards/GhostCard.vue';
 import GhostTable from '@/components/tables/GhostTable.vue';
+import {getModule} from "vuex-module-decorators";
+import {Inject} from "inversify-props";
+import {UserApi} from "@/api";
+
 
 @Component({
     components: { GhostCard, GhostTable},
@@ -36,19 +41,24 @@ export default class MarketPlaceSection extends Vue {
   @Prop() public ghosts!: Ghost[];
   public currentNum!: number;
 
+  @Inject()
+  userApi!: UserApi;
+
   constructor() {
     super();
     // todo: set config with configfile
     this.currentNum = 1;
-    this.syncSelf();
   }
 
   private syncSelf() {
-    return this.$store.dispatch('user/syncSelf');
+    console.log('syncSelf');
+    console.log(this.userApi);
+    console.log('syncSelf2');
+    return {};
   }
 
-  public getSelf() {
-    return this.$store.getters['user/getSelf'];
+  public async getSelf() {
+    return {};
   }
 
 
