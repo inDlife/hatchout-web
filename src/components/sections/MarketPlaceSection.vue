@@ -3,9 +3,10 @@
       <div class="top">
 
         <div class="title">Market Place</div>
+<!--        <button v-on:click="checkClick">button</button>-->
       </div>
       <div class="middle">
-        <GhostTable v-bind:ghosts="ghosts"></GhostTable>
+        <vue-typescript-injectGhostTable v-bind:ghosts="ghosts"></vue-typescript-injectGhostTable>
       </div>
 
       <div class="bottom">
@@ -23,22 +24,30 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
+import {Vue, Prop} from 'vue-property-decorator';
 import {Ghost} from '@/types';
 import GhostCard from '@/components/cards/GhostCard.vue';
 import GhostTable from '@/components/tables/GhostTable.vue';
+import {AxiosFactory} from "@/api/axios/axios.factory";
+import {inject} from "vue-typescript-inject";
+import Component from "vue-class-component";
+import {UserModule} from "@/store/modules/user";
 
 @Component({
-    components: { GhostCard, GhostTable},
+  components: { GhostCard, GhostTable},
 })
 export default class MarketPlaceSection extends Vue {
   @Prop() public ghosts!: Ghost[];
   public currentNum!: number;
+  // @inject() private readonly axiosFactory !: AxiosFactory;
+
 
   constructor() {
     super();
     this.currentNum = 1;
+    UserModule.loadSelf();
   }
+
 }
 </script>
 
