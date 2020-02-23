@@ -4,6 +4,8 @@
 
         <div class="title">Market Place</div>
       </div>
+
+      <Haha></Haha>
       <div class="middle">
         <GhostTable v-bind:ghosts="ghosts"></GhostTable>
       </div>
@@ -30,9 +32,10 @@ import GhostTable from '@/components/tables/GhostTable.vue';
 import {Inject} from "vue-typedi";
 import tokens from "@/store/tokens";
 import {UserModule} from "@/store/modules/user";
+import Haha from "@/components/Haha.vue";
 
 @Component({
-    components: { GhostCard, GhostTable},
+    components: {Haha, GhostCard, GhostTable},
 })
 export default class MarketPlaceSection extends Vue {
   @Prop() public ghosts!: Ghost[];
